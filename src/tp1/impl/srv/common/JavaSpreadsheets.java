@@ -78,7 +78,6 @@ public class JavaSpreadsheets implements Spreadsheets {
 	public Result<String> createSpreadsheet(Spreadsheet sheet, String password) {
 		if (badSheet(sheet) || password == null || wrongPassword(sheet.getOwner(), password))
 			return error(BAD_REQUEST);
-
 		synchronized (sheets) {
 			var sheetId = sheet.getOwner() + "-" + counter.getAndIncrement() + DOMAIN;
 			sheet.setSheetId(sheetId);

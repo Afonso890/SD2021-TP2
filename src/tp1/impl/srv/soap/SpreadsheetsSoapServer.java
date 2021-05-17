@@ -24,7 +24,7 @@ public class SpreadsheetsSoapServer {
 	public static final int PORT = 14567;
 	public static final String SERVICE_NAME = "sheets";
 	public static String SERVER_BASE_URI = "https://%s:%s/soap";
-	public static final String SOAP_USERS_PATH = "/soap/sheets";
+	public static final String SOAP_SHEETS_PATH = "/soap/sheets";
 
 	private static Logger Log = Logger.getLogger(SpreadsheetsSoapServer.class.getName());
 
@@ -35,7 +35,6 @@ public class SpreadsheetsSoapServer {
 
 		String ip = IP.hostAddress();
 		String serverURI = String.format(SERVER_BASE_URI, ip, PORT);
-		String FullServiceName = String.format("%s:%s", Domain.get(), SERVICE_NAME);
 
 		//This allows client code executed by this server to ignore hostname verification
 		HttpsURLConnection.setDefaultHostnameVerifier(new InsecureHostnameVerifier());
@@ -52,9 +51,9 @@ public class SpreadsheetsSoapServer {
 
 		Discovery.getInstance().announce(String.format("%s:%s",Domain.get(), SERVICE_NAME), serverURI);
 
-		Endpoint soapUsersEndpoint = Endpoint.create(new SoapUsersWebService());
+		Endpoint soapSheetsEndpoint = Endpoint.create(new SoapSpreadsheetsWebService());
 		
-		soapUsersEndpoint.publish(server.createContext(SOAP_USERS_PATH));
+		soapSheetsEndpoint.publish(server.createContext(SOAP_SHEETS_PATH));
 		
 		server.start();
 
