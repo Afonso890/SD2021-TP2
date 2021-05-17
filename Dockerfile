@@ -8,7 +8,7 @@ WORKDIR /home/sd
 COPY target/*jar-with-dependencies.jar sd2021.jar
 
 # copy keystore
-COPY server.ks server.ks
+COPY userserver.ks userserver.ks
 
 # copy keystore
 COPY sheets.ks sheets.ks

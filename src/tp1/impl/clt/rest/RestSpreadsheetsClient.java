@@ -2,6 +2,8 @@ package tp1.impl.clt.rest;
 
 import java.net.URI;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
@@ -11,6 +13,7 @@ import tp1.api.Spreadsheet;
 import tp1.api.service.java.Result;
 import tp1.api.service.java.Spreadsheets;
 import tp1.api.service.rest.RestSpreadsheets;
+import tp1.impl.utils.InsecureHostnameVerifier;
 
 public class RestSpreadsheetsClient extends RestClient implements Spreadsheets {
 	private static final String PASSWORD = "password";
@@ -21,6 +24,9 @@ public class RestSpreadsheetsClient extends RestClient implements Spreadsheets {
 
 	public RestSpreadsheetsClient(URI serverUri) {
 		super(serverUri, RestSpreadsheets.PATH);
+		
+		//This allows client code executed by this server to ignore hostname verification
+		HttpsURLConnection.setDefaultHostnameVerifier(new InsecureHostnameVerifier());
 	}
 
 	@Override

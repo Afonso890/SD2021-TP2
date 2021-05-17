@@ -3,6 +3,8 @@ package tp1.impl.clt.rest;
 import java.net.URI;
 import java.util.List;
 
+import javax.net.ssl.HttpsURLConnection;
+
 import jakarta.ws.rs.client.Entity;
 import jakarta.ws.rs.core.GenericType;
 import jakarta.ws.rs.core.MediaType;
@@ -12,6 +14,7 @@ import tp1.api.User;
 import tp1.api.service.java.Result;
 import tp1.api.service.java.Users;
 import tp1.api.service.rest.RestUsers;
+import tp1.impl.utils.InsecureHostnameVerifier;
 
 public class RestUsersClient extends RestClient implements Users {
 	private static final String EXT = "/x";
@@ -20,6 +23,9 @@ public class RestUsersClient extends RestClient implements Users {
 
 	public RestUsersClient(URI serverUri) {
 		super(serverUri, RestUsers.PATH);
+		
+		//This allows client code executed by this server to ignore hostname verification
+		HttpsURLConnection.setDefaultHostnameVerifier(new InsecureHostnameVerifier());
 	}
 
 
